@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "My blog",
   "scripts": {
+    "get-posts": "node ./scripts/get-posts-from-dropbox.js",
     "build-dev:webpack": "webpack",
     "watch:webpack": "webpack --watch",
     "watch:eleventy": "cross-env ELEVENTY_ENV=development eleventy --serve",
@@ -64,5 +65,11 @@
     "*.json": [
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "dropbox": "^8.1.0",
+    "fs-extra": "^9.0.1",
+    "isomorphic-fetch": "^3.0.0"
   }
 }
