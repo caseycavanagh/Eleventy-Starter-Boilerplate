@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "My blog",
   "scripts": {
-    "get-posts": "node ./scripts/get-posts-from-dropbox.js",
     "build-dev:webpack": "webpack",
     "watch:webpack": "webpack --watch",
     "watch:eleventy": "cross-env ELEVENTY_ENV=development eleventy --serve",
     "dev": "npm-run-all clean build-dev:webpack --parallel watch:*",
+    "build:get-posts": "node ./scripts/get-posts-from-dropbox.js",
     "build:webpack": "cross-env NODE_ENV=production webpack --mode production",
     "build:eleventy": "cross-env ELEVENTY_ENV=production eleventy",
     "build": "run-s clean build:*",
