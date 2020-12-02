@@ -122,7 +122,7 @@ Now, your blog is ready to be deployed. All generated files are located at `_sit
 
 Clone this repository on own GitHub account and deploy to Netlify:
 
-[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ixartz/Eleventy-Starter-Boilerplate&stack=cms)
+[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/caseycavanagh/Eleventy-Starter-Boilerplate&stack=cms)
 
 ### Remove Netlify files and Netlify CMS
 
