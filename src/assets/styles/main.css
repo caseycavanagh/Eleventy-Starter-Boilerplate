@@ -1,4 +1,6 @@
-@tailwind base;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 a {
   @apply text-blue-700;
@@ -7,10 +9,6 @@ a {
 a:hover {
   @apply underline;
 }
-
-@tailwind components;
-
-@tailwind utilities;
 
 .content {
   @apply tracking-wider leading-8 text-xl;
@@ -72,9 +70,9 @@ a:hover {
   @apply my-8;
 }
 
-.content table {
+/* .content table {
   @apply whitespace-no-wrap my-8 border-collapse block overflow-auto;
-}
+} */
 
 .content th,
 .content td {

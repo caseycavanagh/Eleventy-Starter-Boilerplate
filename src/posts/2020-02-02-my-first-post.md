@@ -4,7 +4,7 @@ description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 date: 2020-02-02T00:00:00Z
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Test.
 
 Example with image:
 
