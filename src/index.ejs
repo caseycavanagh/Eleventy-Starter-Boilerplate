@@ -1,4 +1,6 @@
 ---
+layout: layouts/new.ejs
+title: Welcome
 pagination:
   data: collections.posts
   size: 5
@@ -8,24 +10,451 @@ permalink: '<% if (pagination.pageNumber > 0) { %><%= `page${pagination.pageNumb
 eleventyComputed:
   title: '<% if (pagination.pageNumber > 0) { %><%= `Page ${pagination.pageNumber + 1} | ${site.title}` %><% } else { %><%= site.title %><% } %>'
 ---
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Instagram Profile Layout with CSS Grid &amp; Flexbox</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<style>
+  /*
 
-<ul>
-  <% list.forEach((post) => { %>
-  <li class="mb-3 flex justify-between">
-    <a href="<%= post.url %>"><%= post.data.title %></a>
-    <div><%= this.dateFns.format(new Date(post.data.date), 'LLLL d, yyyy') %></div>
-  </li>
-  <% }) %>
-</ul>
+All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 310). 
+        
+The 'supports' rule will only run if your browser supports CSS grid.
 
-<div class="text-sm flex justify-between">
-  <% if (pagination.previous) { %>
-  <div>
-    <a href="<%= pagination.previous.replace(/index.html$/, "") %>">← Newer Posts</a>
+Flexbox and floats are used as a fallback so that browsers which don't support grid will still recieve a similar layout.
+
+*/
+
+/* Base Styles */
+
+html { 
+  color: #FFF !important;
+  background-color: #1F1F1F !important;
+  font-family: 'GT America Trial Exp Bl', sans-serif;
+
+}
+
+body {
+	max-width:848px;
+	margin: 0 auto;
+}
+:root {
+    font-size: 10px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Open Sans", Arial, sans-serif;
+    min-height: 100vh;
+    padding-bottom: 3rem;
+}
+
+h2 {
+	font-size:32px;
+	padding-bottom: 16px;
+	text-transform: uppercase;
+}
+
+img {
+    display: block;
+}
+
+.container {
+    max-width: 100rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.btn {
+    display: inline-block;
+    font: inherit;
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    cursor: pointer;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Profile Section */
+
+.profile {
+    padding: 5rem 0;
+}
+
+.profile::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.profile-image {
+    float: left;
+    width: calc(33.333% - 1rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3rem;
+}
+
+.profile-image img {
+    border-radius: 50%;
+}
+
+.profile-user-settings,
+.profile-stats,
+.profile-bio {
+    float: left;
+    width: calc(66.666% - 2rem);
+}
+
+.profile-user-settings {
+    margin-top: 1.1rem;
+}
+
+.profile-user-name {
+    display: inline-block;
+    font-size: 3.2rem;
+    font-weight: 300;
+}
+
+.profile-edit-btn {
+    font-size: 1.4rem;
+    line-height: 1.8;
+    border: 0.1rem solid #dbdbdb;
+    border-radius: 0.3rem;
+    padding: 0 2.4rem;
+    margin-left: 2rem;
+}
+
+.profile-settings-btn {
+    font-size: 2rem;
+    margin-left: 1rem;
+}
+
+.profile-stats {
+    margin-top: 2.3rem;
+}
+
+.profile-stats li {
+    display: inline-block;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    margin-right: 4rem;
+    cursor: pointer;
+}
+
+.profile-stats li:last-of-type {
+    margin-right: 0;
+}
+
+.profile-bio {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-top: 2.3rem;
+}
+
+.profile-real-name,
+.profile-stat-count,
+.profile-edit-btn {
+    font-weight: 600;
+}
+
+/* Gallery Section */
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -1rem -1rem;
+    padding-bottom: 3rem;
+}
+
+.gallery-item {
+    position: relative;
+    flex: 1 0 22rem;
+    margin: 1rem;
+    color: #1F1F1F;
+    cursor: pointer;
+}
+
+.gallery-item .gallery-item-info,
+.gallery-item .gallery-item-info {
+    display: flex;
+	text-align: center;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-item:hover{
+outline: 4px solid #1F1F1F;
+	  transition: all 0.3s ease;
+
+
+ }
+
+.gallery-item-info {
+    display: none;
+}
+
+.gallery-item-likes {
+	background: #FFFFFF;
+border: 4px solid #1F1F1F;
+margin: 16px;
+padding: 8px;
+}
+
+.gallery-item-likes a{
+text-decoration: none;
+color: inherit;
+}
+
+.gallery-item-info li {
+    display: inline-block;
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+
+.gallery-item-type {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.5rem;
+    text-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.1);
+}
+
+.fa-clone,
+.fa-comment {
+    transform: rotateY(180deg);
+}
+
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+/* Loader */
+
+.loader {
+    width: 5rem;
+    height: 5rem;
+    border: 0.6rem solid #999;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: loader 500ms linear infinite;
+}
+
+/* Media Query */
+
+@media screen and (max-width: 40rem) {
+    body{margin: 2rem 0;}
+    .profile {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 2rem 0;
+    }
+
+    .profile::after {
+        display: none;
+    }
+
+    .profile-image,
+    .profile-user-settings,
+    .profile-bio,
+    .profile-stats {
+        float: none;
+        width: auto;
+    }
+
+    .profile-image img {
+        width: 7.7rem;
+    }
+
+    .profile-user-settings {
+        flex-basis: calc(100% - 10.7rem);
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+    }
+
+    .profile-user-name {
+        font-size: 2.2rem;
+    }
+
+    .profile-edit-btn {
+        order: 1;
+        padding: 0;
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .profile-edit-btn {
+        margin-left: 0;
+    }
+
+    .profile-bio {
+        font-size: 1.4rem;
+        margin-top: 1.5rem;
+    }
+
+    .profile-edit-btn,
+    .profile-bio,
+    .profile-stats {
+        flex-basis: 100%;
+    }
+
+    .profile-stats {
+        order: 1;
+        margin-top: 1.5rem;
+    }
+
+    .profile-stats ul {
+        display: flex;
+        text-align: center;
+        padding: 1.2rem 0;
+        border-top: 0.1rem solid #dadada;
+        border-bottom: 0.1rem solid #dadada;
+    }
+
+    .profile-stats li {
+        font-size: 1.4rem;
+        flex: 1;
+        margin: 0;
+    }
+
+    .profile-stat-count {
+        display: block;
+    }
+}
+
+/* Spinner Animation */
+
+@keyframes loader {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/*
+
+The following code will only run if your browser supports CSS grid.
+
+Remove or comment-out the code block below to see how the browser will fall-back to flexbox & floated styling. 
+
+*/
+
+@supports (display: grid) {
+    .profile {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: repeat(3, auto);
+        grid-column-gap: 3rem;
+        align-items: center;
+    }
+
+    .profile-image {
+        grid-row: 1 / -1;
+    }
+
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+        grid-gap: 1rem;
+    }
+
+    .profile-image,
+    .profile-user-settings,
+    .profile-stats,
+    .profile-bio,
+    .gallery-item,
+    .gallery {
+        width: auto;
+        margin: 0;
+    }
+
+    @media (max-width: 40rem) {
+        .profile {
+            grid-template-columns: auto 1fr;
+            grid-row-gap: 1.5rem;
+        }
+
+        .profile-image {
+            grid-row: 1 / 2;
+        }
+
+        .profile-user-settings {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-gap: 1rem;
+        }
+
+        .profile-edit-btn,
+        .profile-stats,
+        .profile-bio {
+            grid-column: 1 / -1;
+        }
+
+        .profile-user-settings,
+        .profile-edit-btn,
+        .profile-settings-btn,
+        .profile-bio,
+        .profile-stats {
+            margin: 0;
+        }
+    }
+}
+</style>
+
+</head>
+<body>
+<main>    
+	 <div class="container">
+    <svg width="80" style="padding-bottom:40px" viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M339.009 21.8298C337.823 20.3745 336.641 20.011 335.457 20.011C316.521 20.011 274.701 92.05 265.628 107.695C305.475 100.417 341.374 72.4039 341.374 33.1076C341.374 28.3794 340.587 24.0121 339.009 21.8298ZM436.919 161.381C435.733 159.926 434.551 159.562 433.368 159.562C414.432 159.562 372.612 231.6 363.539 247.246C403.386 239.968 439.285 211.955 439.285 172.659C439.285 167.931 438.498 163.563 436.919 161.381ZM129.017 297.095C133.357 301.097 133.357 307.281 129.411 311.283C101.797 338.572 80.2099 343.461 54.5646 343.461C28.1334 343.461 9.59081 334.001 2.49072 317.627C-13.2903 279.061 47.4632 222.667 140.963 263.781C171.997 225.378 201.856 174.354 228.595 128.661L228.94 128.071C195.407 122.612 173.314 101.145 173.314 68.7636C173.314 53.4834 179.626 37.8383 191.857 24.0121C195.407 19.6462 202.113 18.9179 206.846 22.5581C211.58 25.8323 212.37 32.0171 208.818 36.383C199.745 46.9338 195.012 57.8493 195.012 68.7636C195.012 94.2337 213.158 107.332 239.985 109.15C279.831 41.1125 307.052 0 335.457 0C353.605 0 363.072 14.9154 363.072 33.1076C363.072 90.596 305.475 126.249 253.004 129.161C249.317 135.378 245.568 141.75 241.758 148.226C217.026 190.258 189.746 236.621 160.689 272.877C195.114 288.75 240.506 306.728 285.017 316.839C288.764 317.69 292.505 318.492 296.233 319.232C306.783 301.913 317.01 284.438 326.813 267.687L326.851 267.622C293.317 262.163 271.225 240.697 271.225 208.315C271.225 193.035 277.536 177.39 289.767 163.563C293.317 159.197 300.024 158.469 304.757 162.109C309.49 165.384 310.28 171.568 306.729 175.934C297.656 186.485 292.922 197.401 292.922 208.315C292.922 233.785 311.069 246.883 337.896 248.702C377.742 180.664 404.962 139.551 433.368 139.551C451.516 139.551 460.983 154.467 460.983 172.659C460.983 230.147 403.386 265.801 350.914 268.713C347.252 274.889 343.527 281.22 339.741 287.652C332.98 299.142 326.027 310.956 318.901 322.8C344.676 325.77 357.252 323.769 357.945 323.45C364.65 322.358 370.963 327.088 370.963 333.272C370.963 338.365 367.018 342.369 361.889 343.096C360.31 343.461 354.394 344.553 344.137 344.553C332.39 344.553 320.065 343.494 307.422 341.619C307.422 341.619 301.316 340.709 298.295 340.128C297.957 340.068 297.62 340.01 297.283 339.952C296.75 339.861 296.217 339.769 295.683 339.67C288.32 338.317 280.881 336.718 273.403 334.902C225.326 323.221 175.831 302.838 137.412 284.52C58.5108 246.317 14.3255 289.613 23.0038 310.352C26.1616 318.721 37.9964 323.45 54.5646 323.45C78.6303 323.45 97.0605 313.83 113.631 297.822C117.576 293.457 124.678 293.457 129.017 297.095ZM416.485 456.715C450.017 461.808 466.192 459.262 466.982 458.898C473.687 457.805 480 462.536 480 468.721C480 473.814 476.055 477.816 470.927 478.545C469.347 478.909 463.43 480 453.174 480C387.684 480 304.443 447.619 246.449 419.967C167.548 381.765 123.364 425.061 132.041 445.799C135.198 454.168 147.033 458.898 163.601 458.898C187.667 458.898 210.548 441.07 227.119 425.061C231.064 420.695 238.165 420.695 242.505 424.333C246.845 428.335 246.845 434.52 242.899 438.523C215.284 465.81 189.247 478.909 163.601 478.909C137.17 478.909 118.628 469.448 111.528 453.076C95.7466 414.509 156.5 358.114 250 399.229C261.712 384.736 273.257 368.444 284.529 351.321C292.007 353.137 299.446 354.735 306.809 356.09C294.831 374.63 282.45 392.448 269.726 408.324C309.967 426.88 365.198 448.346 416.485 456.715Z" fill="#C3F1CF"/>
+      </svg>      
+    <h2>Recipes</h2>
+    <div class="gallery">
+      <% list.forEach((post) => { %>
+        <div class="gallery-item" tabindex="0">
+          <img src=
+          "<%= post.data.img %>"
+          class="gallery-image" alt="" />
+          <div class="gallery-item-info">
+            <ul>
+              <li class="gallery-item-likes"><a href="<%= post.url %>"><%= post.data.title %>
+              </a></li>
+            </ul>
+        </div>
+      </div>
+      <% }) %>
   </div>
-  <% } %> <% if (pagination.next) { %>
-  <div class="text-right ml-auto">
-    <a href="<%= pagination.next.replace(/index.html$/, "") %>">Older Posts →</a>
-  </div>
-  <% } %>
-</div>
+</main>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
