@@ -1,14 +1,6 @@
 ---
 layout: layouts/new.ejs
 title: Welcome
-pagination:
-  data: collections.posts
-  size: 5
-  alias: list
-  reverse: true
-permalink: '<% if (pagination.pageNumber > 0) { %><%= `page${pagination.pageNumber + 1}/index.html` %><% } else { %>index.html<% } %>'
-eleventyComputed:
-  title: '<% if (pagination.pageNumber > 0) { %><%= `Page ${pagination.pageNumber + 1} | ${site.title}` %><% } else { %><%= site.title %><% } %>'
 ---
 <!DOCTYPE html>
 <html lang="en" >
