@@ -13,8 +13,6 @@ eleventyComputed:
   <% list.forEach((post) => { %>
   <li class="mb-3 flex justify-between">
     <a href="<%= post.url %>"><%= post.data.title %></a>
-
-    <!-- <div><%= this.dateFns.format(new Date(post.data.date), 'LLLL d, yyyy') %></div> -->
   </li>
   <% }) %>
 </ul>
